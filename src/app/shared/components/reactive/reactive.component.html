@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form [formGroup]="signInForm" (ngSubmit)="signIn()">
+                <div class="form-group">
+                    <label for="username">username</label>
+                    <input type="text"  class="form-control" pattern="[a-zA-Z]+" formControlName="username"
+                        id="username">
+                </div>
+
+
+            <ng-container *ngIf="signInForm.controls['username'].invalid && signInForm.controls['username'].touched">
+             <p class="alert alert-info" *ngIf="signInForm.controls['username'].hasError('required')">
+                username required</p>
+            </ng-container>
+
+            <ng-container *ngIf="signInForm.controls['username'].dirty && signInForm.controls['username'].invalid">
+                <p *ngIf="signInForm.controls['username'].hasError('minlength')" class="text-danger">
+                   username required length {{signInForm.controls['username'].errors?.['minlength'].requiredLength}}
+                    username minimum length  4 </p>
+                    
+                <p *ngIf="signInForm.controls['username'].hasError('maxlength')" class="text-danger">usernam actual length is{{signInForm.controls['username'].errors?.['maxlength'].actualLength }}</p>
+            </ng-container>
+
+
+
+
+                <div class="form-group">
+                    <label for="email">email</label>
+                    <input type="text" class="form-control" id="email" formControlName="email">
+                </div>
+                <div class="form-group">
+                    <div *ngFor="let gender of genderArray">
+                        <label [for]="gender">
+                            <input type="radio" [value]="gender" name="" [id]="gender" formControlName="gender">
+                            {{gender}}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">password</label>
+                    <input type="text" class="form-control" id="password" formControlName="password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmpassword">confirmpassword</label>
+                    <input type="text" class="form-control" id="confirmpassword" formControlName="confirmpassword">
+                </div>
+                <div class="text-right">
+                    <button class="btn btn-primary">submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
